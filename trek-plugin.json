@@ -1,0 +1,42 @@
+{
+  "id": "community-trips",
+  "name": "Community Trips",
+  "version": "1.0.0",
+  "apiVersion": 1,
+  "author": "raduwolf12",
+  "description": "Browse real trips other TREK admins have shared, discuss them, and share your own — reviewed via a GitHub pull request, with a Discussion thread for suggestions.",
+  "type": "page",
+  "trek": ">=3.4.0 <4.0.0",
+  "nativeModules": false,
+  "permissions": [
+    "db:own",
+    "http:outbound",
+    "http:outbound:raw.githubusercontent.com",
+    "http:outbound:api.github.com",
+    "db:read:trips"
+  ],
+  "requiredAddons": [],
+  "pluginDependencies": [],
+  "icon": "Users",
+  "egress": [
+    "raw.githubusercontent.com",
+    "api.github.com"
+  ],
+  "settings": [
+    {
+      "key": "github_pat",
+      "label": "GitHub personal access token",
+      "input_type": "password",
+      "scope": "user",
+      "required": false,
+      "secret": true,
+      "hint": "Fine-grained PAT scoped to raduwolf12/featured-guides with Contents, Pull requests and Discussions write access — set your own token to share a trip or post a suggestion."
+    }
+  ],
+  "actions": [
+    {
+      "key": "test_connection",
+      "label": "Test connection"
+    }
+  ]
+}
