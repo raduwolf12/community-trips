@@ -507,6 +507,7 @@ module.exports = definePlugin({
         const payload = await tripToGuidePayload(ctx, tripId);
         if (payload.error) return payload.error;
         const { title, location, sanitized, bookingBlocks, totalPlaces } = payload;
+        if (!totalPlaces) return error(400, 'Add at least one place to this trip before sharing it — an empty itinerary has nothing for others to browse.');
 
         const { blocks: placeBlocks, dayBlocksInserted, placesInserted } = placesToBlockList(sanitized);
         const guidePayload = {

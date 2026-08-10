@@ -13,6 +13,7 @@
     "http:outbound",
     "http:outbound:raw.githubusercontent.com",
     "http:outbound:api.github.com",
+    "http:outbound:basemaps.cartocdn.com",
     "db:read:trips"
   ],
   "requiredAddons": [],
@@ -20,7 +21,8 @@
   "icon": "Users",
   "egress": [
     "raw.githubusercontent.com",
-    "api.github.com"
+    "api.github.com",
+    "basemaps.cartocdn.com"
   ],
   "settings": [
     {
