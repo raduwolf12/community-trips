@@ -1,0 +1,415 @@
+{
+  "guide": {
+    "title": "Prague in 3 Days",
+    "location": null,
+    "description": null,
+    "template": "itinerary"
+  },
+  "blocks": [
+    {
+      "type": "day",
+      "data": {
+        "dayNumber": 1,
+        "title": null
+      }
+    },
+    {
+      "type": "place",
+      "data": {
+        "name": "Pařížská ulice",
+        "category": null,
+        "description": "Pařížská ulice is renowned for being one of the most luxurious shopping streets in Prague, Czechia. It is located in the Old Town area and is lined with high-end boutiques and designer stores, o ff ering a shopping experience akin to that of Paris or Milan. The street is also notable for its beautiful architecture, featuring a mix of Art Nouveau and Neo-Renaissance styles. Pařížská ulice connects the Old Town Square with the Čech Bridge, making it a popular route for both tourists and locals. The street's name, which translates to 'Paris Street,' re fl ects its elegant and cosmopolitan atmosphere.",
+        "address": "Pařížská 24-28, 110 00 Praha 1-Staré Město, Czechia",
+        "lat": 50.0882984,
+        "lon": 14.4201097,
+        "rating": null,
+        "tips": [],
+        "photoDataUri": null,
+        "source": "pdf-import",
+        "xid": null
+      }
+    },
+    {
+      "type": "place",
+      "data": {
+        "name": "Four Seasons Hotel Prague",
+        "category": null,
+        "description": "Four Seasons Hotel Prague is an elegant luxury hotel situated along the Vltava River, o ff ering stunning views of the city and easy access to cultural attractions. The hotel combines historic architecture with modern design and features beautifully appointed rooms and suites equipped with upscale amenities. Guests can enjoy on-site dining at renowned restaurants serving international cuisine, a full-service spa, and a  fi tness center. With its prime location, the hotel is an excellent base for exploring Prague's rich history and vibrant culture. Miru Japanese Veleslavínova 1098/2a, Staré Město, 110 00 Praha-Praha 1, Czechia +420 221 426 880 Miru is an exclusive rooftop Japanese restaurant situated in the heart of Prague, o ff ering panoramic city views. The name 'Miru' translates to 'view' in Japanese, re fl ecting its stunning vistas. Guests can enjoy a nine-course degustation menu crafted by Japanese Executive Chef Toshikazu Kato and Executive Chef Nicholas Trosien, blending traditional Japanese techniques with seasonal ingredients. The restaurant features a Japanese garden-inspired terrace, providing a serene dining experience. With only four tables available each evening, reservations are recommended to ensure a memorable culinary journey.",
+        "address": "Veleslavínova 2a/1098, Prague, Czech Republic",
+        "lat": 0,
+        "lon": 0,
+        "rating": null,
+        "tips": [],
+        "photoDataUri": null,
+        "source": "pdf-import",
+        "xid": null
+      }
+    },
+    {
+      "type": "place",
+      "data": {
+        "name": "Charles Bridge",
+        "category": null,
+        "description": "Charles Bridge is a renowned historic bridge that spans the Vltava River in Prague. Completed in the early 15th century, it features a series of 30 statues of saints, adding to its artistic and historical signi fi cance. The bridge connects the Prague Castle with the Old Town and is lined with vibrant stalls and performers, making it a lively destination for visitors. Its Gothic towers and picturesque setting provide stunning views, especially at sunrise and sunset, attracting countless photographers and artists.",
+        "address": "Karlův most, 110 00 Praha 1, Czechia",
+        "lat": 50.0861526,
+        "lon": 14.4137572,
+        "rating": null,
+        "tips": [],
+        "photoDataUri": null,
+        "source": "pdf-import",
+        "xid": null
+      }
+    },
+    {
+      "type": "place",
+      "data": {
+        "name": "Old Town Square",
+        "category": null,
+        "description": "Old Town Square, located in the heart of Prague, is a historic public square surrounded by stunning Gothic and Baroque buildings. Notable landmarks include the iconic Astronomical Clock, Týn Church, and St. Nicholas Church. The square has been a focal point of city life since the 12th century, hosting various events, markets, and celebrations. Its cobblestone streets and vibrant atmosphere attract both locals and tourists alike, o ff ering a glimpse into the rich history and culture of the Czech Republic. It's an ideal place for leisurely walks, dining, and exploring local shops.",
+        "address": "Staroměstské nám., 110 00 Praha 1-Staré Město, Czechia",
+        "lat": 50.08745574951172,
+        "lon": 14.420967102050781,
+        "rating": null,
+        "tips": [],
+        "photoDataUri": null,
+        "source": "pdf-import",
+        "xid": null
+      }
+    },
+    {
+      "type": "place",
+      "data": {
+        "name": "Church of Our Lady before Týn",
+        "category": null,
+        "description": "The Church of Our Lady before Týn, a prominent Gothic structure, dominates the skyline of Prague's Old Town Square. Dating back to the 14th century, its twin spires reach towards the sky, creating a striking image that attracts visitors from around the world. The exterior features intricate details, while the interior houses stunning altars, sculptures, and a remarkable astronomical clock. This church is not only a place of worship but also a signi fi cant symbol of the city's rich history and architectural heritage. Its central location makes it a must-visit for tourists exploring Prague. Josefov Prague, Bohemia, Czech Republic Known as the Jewish Quarter, this neighborhood is a treasure trove of history and culture. Visitors can explore the Old Jewish Cemetery, one of the oldest in Europe, and several synagogues, including the Spanish Synagogue with its stunning Moorish interior. The Jewish Museum o ff ers a deep dive into the history and traditions of the Jewish community in Prague. The area is also home to the Franz Kafka Museum, dedicated to the famous writer who was born in Prague. With its cobblestone streets and historical buildings, the neighborhood provides a unique and enriching experience for any traveler.",
+        "address": "Staroměstské nám., 110 00 Staré Město, Czechia",
+        "lat": 50.08771896362305,
+        "lon": 14.42269515991211,
+        "rating": null,
+        "tips": [],
+        "photoDataUri": null,
+        "source": "pdf-import",
+        "xid": null
+      }
+    },
+    {
+      "type": "place",
+      "data": {
+        "name": "Old Jewish Cemetery",
+        "category": null,
+        "description": "The Old Jewish Cemetery in Prague, established in the  fi rst half of the 15th century, is one of the oldest surviving Jewish burial grounds in Europe. It served as the primary cemetery for Prague's Jewish community until 1787, when burials were prohibited within city limits. Over the centuries, due to limited space, graves were layered up to twelve deep, resulting in a densely packed area with approximately 12,000 visible tombstones. Notable  fi gures interred here include Rabbi Judah Loew ben Bezalel, known as the Maharal, and historian David Gans. The cemetery is part of the Jewish Museum in Prague and is located at Široká 3, 110 00 Praha 1.",
+        "address": "Široká 3, Staré Město, 110 00 Praha-Praha 1, Czechia",
+        "lat": 50.08997344970703,
+        "lon": 14.416914939880371,
+        "rating": null,
+        "tips": [],
+        "photoDataUri": null,
+        "source": "pdf-import",
+        "xid": null
+      }
+    },
+    {
+      "type": "place",
+      "data": {
+        "name": "The Old-New Synagogue",
+        "category": null,
+        "description": "The Old-New Synagogue, located in Prague's Jewish Quarter, is Europe's oldest active synagogue, dating back to 1270. Built in the Gothic style, it features a double-nave interior with  fi ve-ribbed vaulting, supported by two central pillars. The synagogue is renowned for its association with Rabbi Judah Loew ben Bezalel, who is linked to the legend of the Golem. The attic is said to house the remains of the Golem, created by Rabbi Loew to protect the community. The synagogue has survived numerous challenges, including  fi res and  fl oods, and continues to serve as a place of worship for Prague's Jewish community.",
+        "address": "Červená, Staré Město, 110 01 Praha-Praha 1, Czechia",
+        "lat": 50.09003829956055,
+        "lon": 14.41858959197998,
+        "rating": null,
+        "tips": [],
+        "photoDataUri": null,
+        "source": "pdf-import",
+        "xid": null
+      }
+    },
+    {
+      "type": "place",
+      "data": {
+        "name": "Pinkas Synagogue",
+        "category": null,
+        "description": "The Pinkas Synagogue, established in 1535, is one of the oldest synagogues in Prague and serves as a poignant Holocaust memorial. It is part of the Jewish Museum in Prague and is dedicated to the memory of the nearly 80,000 Jewish victims from Bohemia and Moravia who perished during the Holocaust. The synagogue's walls are inscribed with the names of these victims, making it a powerful site of remembrance. Additionally, the synagogue houses a collection of children's drawings from the Terezín ghetto, o ff ering a glimpse into the lives and hopes of young Jewish children during World War II.",
+        "address": "3, Široká 23, Josefov, 110 00 Praha, Czechia",
+        "lat": 50.08927536010742,
+        "lon": 14.416998863220215,
+        "rating": null,
+        "tips": [],
+        "photoDataUri": null,
+        "source": "pdf-import",
+        "xid": null
+      }
+    },
+    {
+      "type": "day",
+      "data": {
+        "dayNumber": 2,
+        "title": null
+      }
+    },
+    {
+      "type": "place",
+      "data": {
+        "name": "Loreto",
+        "category": null,
+        "description": "Loreto is a notable Baroque pilgrimage site located in Prague, Czechia. Established in the early 17th century, it is renowned for its stunning architecture, particularly the elegant façade and the famous bell tower. The complex houses a collection of religious artworks and treasures, including a replica of the Holy House, which is said to be a sacred site for numerous pilgrims. Loreto hosts various religious services and cultural events throughout the year, making it a signi fi cant aspect of Prague's rich history and spirituality.",
+        "address": "Loretánské nám. 7, 118 00 Praha 1-Hradčany, Czechia",
+        "lat": 0,
+        "lon": 0,
+        "rating": null,
+        "tips": [],
+        "photoDataUri": null,
+        "source": "pdf-import",
+        "xid": null
+      }
+    },
+    {
+      "type": "place",
+      "data": {
+        "name": "Mucha Museum",
+        "category": null,
+        "description": "The Mucha Museum in Nové Město is dedicated to the life and works of Alphonse Mucha, a pioneer of the Art Nouveau movement. The museum houses an extensive collection of original prints, paintings, and decorative artworks created by Mucha, providing insights into his unique style and artistic contributions. Visitors can explore the rich history of Art Nouveau through various exhibits, including personal artifacts and historical context. This intimate space allows for a deep appreciation of Mucha's in fl uence on both art and culture, making it a must-visit for those intrigued by his legacy.",
+        "address": "Panská 7, 110 00 Nové Město, Czechia",
+        "lat": 0,
+        "lon": 0,
+        "rating": null,
+        "tips": [],
+        "photoDataUri": null,
+        "source": "pdf-import",
+        "xid": null
+      }
+    },
+    {
+      "type": "place",
+      "data": {
+        "name": "EMA espresso bar",
+        "category": null,
+        "description": "EMA espresso bar is a specialty co ff ee shop located in Prague's Nové Město district. The café o ff ers a selection of high-quality co ff ees sourced from local and European micro- roasters, prepared using methods like espresso, pour-over, and AeroPress. The minimalist interior features clean white walls, light wooden furniture, and contemporary art, creating a bright and airy atmosphere. The baristas are known for their professionalism and friendly service, providing a welcoming environment for both locals and visitors. Vinohrady Prague, Bohemia, Czech Republic Known for its stunning Art Nouveau architecture and vibrant cultural scene, this neighborhood o ff ers a mix of historic charm and modern amenities. Visitors can enjoy a variety of dining options, from trendy cafes to upscale restaurants, and explore numerous parks like Riegrovy Sady for a breath of fresh air. The area is also a hotspot for nightlife, with an array of bars and clubs. Cultural attractions, including theaters and galleries, add to its appeal. Despite its popularity, the neighborhood maintains a relaxed atmosphere, making it a favorite among both locals and tourists.",
+        "address": "Na Florenci 1420/3, 110 00 Nové Město, Czechia",
+        "lat": 0,
+        "lon": 0,
+        "rating": null,
+        "tips": [],
+        "photoDataUri": null,
+        "source": "pdf-import",
+        "xid": null
+      }
+    },
+    {
+      "type": "place",
+      "data": {
+        "name": "Lokál Hamburk",
+        "category": null,
+        "description": "Lokál Hamburk is a traditional Czech restaurant located in Prague's Karlín district. Situated at Sokolovská 55, 186 00 Karlín, it o ff ers a variety of classic Czech dishes prepared with local ingredients. The establishment is known for its carefully treated beer, which travels through the shortest possible pipes straight into the pint, ensuring freshness until the last sip. The menu features items such as pork schnitzel, spicy sausage, and fried cheese. The restaurant provides a non- smoking environment and accepts various meal vouchers. It also o ff ers free Wi-Fi for guests.",
+        "address": "Sokolovská 55, 186 00 Karlín, Czechia",
+        "lat": 0,
+        "lon": 0,
+        "rating": null,
+        "tips": [],
+        "photoDataUri": null,
+        "source": "pdf-import",
+        "xid": null
+      }
+    },
+    {
+      "type": "place",
+      "data": {
+        "name": "Prague Castle",
+        "category": null,
+        "description": "Prague Castle, a UNESCO World Heritage site, is an iconic symbol of the Czech Republic, boasting a rich history that dates back to the 9th century. It is one of the largest ancient castles in the world, with stunning architectural styles ranging from Romanesque to Gothic. Within its walls, visitors can explore the grand St. Vitus Cathedral, the Old Royal Palace, and beautiful gardens, all while enjoying panoramic views of the city. The castle complex is not only a signi fi cant historical site but also a cultural hub, hosting various art exhibitions and events throughout the year.",
+        "address": "119 08 Prague 1, Czechia",
+        "lat": 50.0878644,
+        "lon": 14.4095883,
+        "rating": null,
+        "tips": [],
+        "photoDataUri": null,
+        "source": "pdf-import",
+        "xid": null
+      }
+    },
+    {
+      "type": "place",
+      "data": {
+        "name": "St. Vitus Cathedral",
+        "category": null,
+        "description": "St. Vitus Cathedral, a stunning example of Gothic architecture, is located within the Prague Castle complex. This iconic cathedral, founded in 934, serves as the burial site of Bohemian kings and the seat of the Archbishop of Prague. Its breathtaking stained glass windows and intricate spires attract millions of visitors each year. The cathedral's many chapels and artworks showcase centuries of artistry and religious signi fi cance, making it a must-visit for those exploring the city's rich history and culture.",
+        "address": "III. nádvoří 48/2, 119 01 Praha 1-Hradčany, Czechia",
+        "lat": 0,
+        "lon": 0,
+        "rating": null,
+        "tips": [],
+        "photoDataUri": null,
+        "source": "pdf-import",
+        "xid": null
+      }
+    },
+    {
+      "type": "place",
+      "data": {
+        "name": "Old Royal Palace",
+        "category": null,
+        "description": "The Old Royal Palace, located within Prague Castle, holds great historical signi fi cance as the former seat of Czech kings and later emperors. With roots dating back to the 9th century, it features an impressive blend of Gothic and Renaissance architecture. The palace includes the majestic Vladislav Hall, known for its stunning rib-vaulted ceiling, and important historical relics that re fl ect the rich heritage of the Czech Republic. Visitors can explore the ornate rooms and grand halls that have witnessed pivotal moments in Czech history, making it a vital part of any tour of Prague.",
+        "address": "Třetí nádvoří Pražského hradu 48, 119 00 Praha 1-Hradčany, Czechia",
+        "lat": 0,
+        "lon": 0,
+        "rating": null,
+        "tips": [],
+        "photoDataUri": null,
+        "source": "pdf-import",
+        "xid": null
+      }
+    },
+    {
+      "type": "place",
+      "data": {
+        "name": "St. George's Basilica",
+        "category": null,
+        "description": "St. George's Basilica, located within the grounds of Prague Castle, is one of the oldest churches in the city, dating back to the 10th century. This Romanesque masterpiece is known for its stunning architecture and rich history, featuring intricate frescoes and beautiful altars. The basilica serves as a testament to the early medieval architectural style, with its robust structure and serene atmosphere attracting numerous visitors. It is often cited for its impressive interior, which includes a magni fi cent organ and several tombs of Czech nobility. A visit to this site o ff ers a glimpse into the spiritual and cultural heritage of the Czech Republic.",
+        "address": "119 08 Prague-Prague 1, Czechia",
+        "lat": 0,
+        "lon": 0,
+        "rating": null,
+        "tips": [],
+        "photoDataUri": null,
+        "source": "pdf-import",
+        "xid": null
+      }
+    },
+    {
+      "type": "place",
+      "data": {
+        "name": "Golden Lane",
+        "category": null,
+        "description": "Golden Lane is a picturesque street located within the Prague Castle complex, famous for its charming, colorful houses and historic signi fi cance. Dating back to the 16th century, this narrow lane was originally inhabited by castle guards and alchemists. Today, it is a popular tourist destination, allowing visitors to explore its quaint architecture and the unique shops. Each house has its own story, with some transformed into small museums showcasing the life and crafts of past residents. This enchanting area adds to the cultural richness of Prague, making it a must-visit for travelers.",
+        "address": "Pražský hrad Hrad III, nádvoří, 119 00 Praha 1-Hradčany, Czechia",
+        "lat": 0,
+        "lon": 0,
+        "rating": null,
+        "tips": [],
+        "photoDataUri": null,
+        "source": "pdf-import",
+        "xid": null
+      }
+    },
+    {
+      "type": "day",
+      "data": {
+        "dayNumber": 3,
+        "title": null
+      }
+    },
+    {
+      "type": "place",
+      "data": {
+        "name": "Petrin Tower",
+        "category": null,
+        "description": "Petrin Tower, commonly referred to as the Ei ff el Tower of Prague, is a 63.5-meter-tall observation tower located on Petřín Hill. It was built in 1891 and o ff ers spectacular views of the city and the Vltava River from its viewing platform. The structure features a unique design, inspired by the Ei ff el Tower, and is surrounded by lush gardens, making it a popular spot for both locals and tourists. Visitors can access the tower via a steep climb or a funicular railway, enhancing the experience of exploring this scenic area.",
+        "address": "Petřínské sady 633, 118 00 Praha 1-Malá Strana, Czechia",
+        "lat": 0,
+        "lon": 0,
+        "rating": null,
+        "tips": [],
+        "photoDataUri": null,
+        "source": "pdf-import",
+        "xid": null
+      }
+    },
+    {
+      "type": "place",
+      "data": {
+        "name": "Farmers' Saturday market",
+        "category": null,
+        "description": "Farmers' Saturday Market at Náplavka in Prague is a lively gathering place where local vendors showcase fresh produce, handmade goods, and regional specialties. Set along the scenic Vltava River, this market o ff ers a vibrant atmosphere fi lled with the aromas of seasonal fruits, artisanal cheeses, and baked goods. Visitors can enjoy live music and unique culinary experiences while exploring the diverse stalls. It's a great spot for experiencing local culture and supporting small-scale farmers and artisans.",
+        "address": "Rašínovo nábřeží Vltavská, Náplavka, 120 00 Praha 2-Nové Město, Czechia",
+        "lat": 0,
+        "lon": 0,
+        "rating": null,
+        "tips": [],
+        "photoDataUri": null,
+        "source": "pdf-import",
+        "xid": null
+      }
+    },
+    {
+      "type": "place",
+      "data": {
+        "name": "Field Restaurant",
+        "category": null,
+        "description": "Field Restaurant, located at U Milosrdných 12 in Prague, is a Michelin-starred establishment helmed by Chef Radek Kašpárek. The restaurant is renowned for its modern Czech cuisine, emphasizing seasonal and locally sourced ingredients. The menu features creative dishes such as marinated fallow deer with bear garlic and grilled fallow deer bone sauce, as well as lamb rack glazed in lamb jus with red wine and sour cream, accompanied by a white bean salad topped with lardo and smoked paprika dust. The interior is elegantly decorated in wooden tones, providing a pleasant atmosphere overlooking the streets of the posh part of the city. Field Restaurant o ff ers both lunch and dinner services, with options for tasting menus and wine pairings. The establishment is air-conditioned and provides free Wi-Fi for guests. Map Hotel  Restaurant  Attraction  Location 1.  Charles Bridge 2.  Old Town Square 3.  Church of Our Lady before Týn 4.  Josefov 5.  Old Jewish Cemetery 6.  The Old-New Synagogue 7.  Pinkas Synagogue 8.  Pařížská ulice 9.  Four Seasons Hotel Prague 10.  Miru 11.  Prague Castle 12.  St. Vitus Cathedral 13.  Old Royal Palace 14.  St. George's Basilica 15.  Golden Lane 16.  Loreto 17.  Mucha Museum 18.  EMA espresso bar 19.  Vinohrady 20.  Lokál Hamburk Showing 20 of 27 places.  View all on map July 20, 2026",
+        "address": "U Milosrdných 12, Prague, 110 00, Czechia",
+        "lat": 0,
+        "lon": 0,
+        "rating": null,
+        "tips": [],
+        "photoDataUri": null,
+        "source": "pdf-import",
+        "xid": null
+      }
+    },
+    {
+      "type": "place",
+      "data": {
+        "name": "Národní muzeum",
+        "category": null,
+        "description": "Národní muzeum, or the National Museum, is a prominent cultural institution located at Václavské náměstí in Prague. Established in 1818, it serves as the Czech Republic's largest museum, showcasing a vast collection that encompasses natural history, archaeology, art, and history. The museum's neo-Renaissance building is itself a work of art, featuring a grand facade and a majestic dome. Visitors can explore various exhibitions that highlight the rich heritage and diversity of the Czech lands. The museum is not just an educational resource but also a gathering place for exhibitions and cultural events.",
+        "address": "Václavské nám. 68, 110 00 Praha 1-Nové Město, Czechia",
+        "lat": 0,
+        "lon": 0,
+        "rating": null,
+        "tips": [],
+        "photoDataUri": null,
+        "source": "pdf-import",
+        "xid": null
+      }
+    },
+    {
+      "type": "place",
+      "data": {
+        "name": "Wenceslas Square",
+        "category": null,
+        "description": "Wenceslas Square is a vibrant cultural and social hub in the heart of Prague. Originally established as a horse market in the 14th century, it has evolved into a prominent boulevard lined with shops, restaurants, and hotels. The square is notable for its historical signi fi cance, serving as the site for various important events, protests, and celebrations throughout Czech history. It features the grand National Museum at its top, along with a statue of Saint Wenceslas, the patron saint of Bohemia. The lively atmosphere attracts both locals and tourists, making it a vital part of Prague's urban life.",
+        "address": "New Town, 110 00 Prague 1, Czechia",
+        "lat": 0,
+        "lon": 0,
+        "rating": null,
+        "tips": [],
+        "photoDataUri": null,
+        "source": "pdf-import",
+        "xid": null
+      }
+    },
+    {
+      "type": "place",
+      "data": {
+        "name": "Café Savoy",
+        "category": null,
+        "description": "Established around 1893, Café Savoy is renowned for its elegant Art Nouveau interior, featuring a seven-meter neo- Renaissance ceiling adorned with rich stucco ornaments and massive chandeliers. The café o ff ers a fusion of Czech, Viennese, and French cuisines, with specialties like eggs in a glass with black tru ffl e, Gillardeau oysters, Vienna schnitzel, duck, and fruit dumplings. Its in-house bakery prepares fresh pastries daily, including the traditional Savoy cake, apple strudel with vanilla cream, and nougat pancakes. Café Savoy is a popular destination for breakfast, lunch, and dinner, combining haute cuisine with a historic setting.",
+        "address": "Vítězná 124/5, 150 00 Praha 5-Smíchov, Czechia",
+        "lat": 50.0809258,
+        "lon": 14.4072158,
+        "rating": null,
+        "tips": [],
+        "photoDataUri": null,
+        "source": "pdf-import",
+        "xid": null
+      }
+    },
+    {
+      "type": "place",
+      "data": {
+        "name": "Petrin Hill",
+        "category": null,
+        "description": "Petrin Hill is a prominent park and recreation area in Prague, well-known for its lush greenery and stunning panoramic views of the city. The hill rises above the Vltava River, providing visitors with ideal locations for walking, picnicking, and enjoying the outdoors. At the summit, you'll  fi nd the Petrin Lookout Tower, which resembles the Ei ff el Tower, o ff ering breathtaking vistas. The area also features beautiful gardens, an observatory, and the historic Hunger Wall, making it a serene escape from the city's hustle and bustle.",
+        "address": "118 00 Prague 1, Czechia",
+        "lat": 50.0875554,
+        "lon": 14.4021026,
+        "rating": null,
+        "tips": [],
+        "photoDataUri": null,
+        "source": "pdf-import",
+        "xid": null
+      }
+    }
+  ]
+}
