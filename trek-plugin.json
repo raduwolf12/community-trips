@@ -32,7 +32,7 @@
       "scope": "user",
       "required": false,
       "secret": true,
-      "hint": "Fine-grained PAT scoped to raduwolf12/featured-guides with Contents, Pull requests and Discussions write access — set your own token to share a trip or post a suggestion."
+      "hint": "Fine-grained PAT scoped to raduwolf12/community-trips with Contents, Pull requests and Discussions write access — set your own token to share a trip or post a suggestion."
     }
   ],
   "actions": [

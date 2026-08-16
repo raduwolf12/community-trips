@@ -1,0 +1,7 @@
+node_modules/
+plugin.zip
+test-data/
+*.log
+.DS_Store
+Thumbs.db
+.env

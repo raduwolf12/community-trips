@@ -2,11 +2,10 @@
 const { definePlugin } = require('trek-plugin-sdk');
 
 const GITHUB_API_BASE = 'https://api.github.com';
-// Same marketplace repo Featured Guides already publishes to — deliberately unchanged by this
-// plugin split, so every trip PR/Discussion opened before the split (and every already-merged
-// marketplace/trips/*.json entry) keeps working with zero migration on the GitHub side.
+// This plugin's own marketplace repo — trip PRs/Discussions and marketplace/trips/*.json
+// entries live here, separate from Featured Guides' marketplace repo.
 const GITHUB_OWNER = 'raduwolf12';
-const GITHUB_REPO = 'featured-guides';
+const GITHUB_REPO = 'community-trips';
 const GITHUB_FETCH_TIMEOUT_MS = 8000;
 
 function json(status, body) {
@@ -366,6 +365,16 @@ function slugify(text) {
     .slice(0, 60) || 'trip';
 }
 
+// Two admins can independently title a trip "Weekend in Rome" — appends " (2)", " (3)", etc.
+// until the name doesn't collide with any trip already listed in the marketplace index.
+function uniqueTitle(title, existingTitles) {
+  const taken = new Set(existingTitles.filter(Boolean));
+  if (!taken.has(title)) return title;
+  let n = 2;
+  while (taken.has(`${title} (${n})`)) n++;
+  return `${title} (${n})`;
+}
+
 // Seed body for the Discussion opened alongside a Share Trip PR.
 function buildTripDiscussionBody(trip, prUrl) {
   const lines = [
@@ -510,22 +519,34 @@ module.exports = definePlugin({
         if (!totalPlaces) return error(400, 'Add at least one place to this trip before sharing it — an empty itinerary has nothing for others to browse.');
 
         const { blocks: placeBlocks, dayBlocksInserted, placesInserted } = placesToBlockList(sanitized);
-        const guidePayload = {
-          guide: { title, location, description: null, template: dayBlocksInserted ? 'itinerary' : 'list' },
-          blocks: [...bookingBlocks, ...placeBlocks],
-        };
-        const slug = `${slugify(title)}-${tripId}`;
-        const today = new Date().toISOString().slice(0, 10);
-        const indexEntry = {
-          id: slug, title, location: location || null, description: null, author: req.user.name || req.user.email || 'a TREK admin',
-          coverPhoto: null, placeCount: placesInserted, days: dayBlocksInserted || null,
-          addedAt: today, updatedAt: today, file: `trips/${slug}.json`,
-        };
 
-        let branch, prUrl, discussionNumber, discussionUrl, discussionNodeId;
+        let branch, prUrl, discussionNumber, discussionUrl, discussionNodeId, slug;
         try {
           const mainRef = await githubFetch(token, `/repos/${GITHUB_OWNER}/${GITHUB_REPO}/git/ref/heads/main`);
           const baseSha = mainRef.object.sha;
+
+          // Dedupe the display title against every trip already listed, so two admins sharing a
+          // same-named trip don't end up indistinguishable in the browse list. A missing/unreadable
+          // index.json (first share ever) just means there's nothing to collide with yet.
+          let existingTitles = [];
+          try {
+            const mainIndexFile = await githubFetch(token, `/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/marketplace/trips/index.json?ref=main`);
+            const mainIndex = JSON.parse(Buffer.from(mainIndexFile.content, 'base64').toString('utf8'));
+            existingTitles = mainIndex.map((e) => e.title);
+          } catch { /* no index.json yet */ }
+          const uniqueTitleValue = uniqueTitle(title, existingTitles);
+
+          const guidePayload = {
+            guide: { title: uniqueTitleValue, location, description: null, template: dayBlocksInserted ? 'itinerary' : 'list' },
+            blocks: [...bookingBlocks, ...placeBlocks],
+          };
+          slug = `${slugify(uniqueTitleValue)}-${tripId}`;
+          const today = new Date().toISOString().slice(0, 10);
+          const indexEntry = {
+            id: slug, title: uniqueTitleValue, location: location || null, description: null, author: req.user.name || req.user.email || 'a TREK admin',
+            coverPhoto: null, placeCount: placesInserted, days: dayBlocksInserted || null,
+            addedAt: today, updatedAt: today, file: `trips/${slug}.json`,
+          };
           branch = `share-trip-${slug}`;
           // A previous attempt at this same share can have gotten partway (branch/PR created,
           // then a later step throwing) without ever reaching the trip_shares INSERT at the
@@ -562,7 +583,7 @@ module.exports = definePlugin({
 
           await putOnBranch(
             `marketplace/trips/${slug}.json`,
-            `Add community trip: ${title}`,
+            `Add community trip: ${uniqueTitleValue}`,
             () => JSON.stringify(guidePayload, null, 2)
           );
 
@@ -572,7 +593,7 @@ module.exports = definePlugin({
             const pr = await githubFetch(token, `/repos/${GITHUB_OWNER}/${GITHUB_REPO}/pulls`, {
               method: 'POST',
               body: JSON.stringify({
-                title: `Community trip: ${title}`,
+                title: `Community trip: ${uniqueTitleValue}`,
                 head: branch, base: 'main',
                 body: `Shared from a TREK trip via the Community Trips plugin.\n\n- **${totalPlaces}** places\n- **${dayBlocksInserted || 0}** days\n\nAdds \`marketplace/trips/${slug}.json\` and lists it in \`marketplace/trips/index.json\`.`,
               }),
@@ -588,7 +609,7 @@ module.exports = definePlugin({
 
           // Repository Discussions have no REST create/list/comment endpoints (only the
           // unrelated org-level "team discussions" do) — githubGraphQL is required here.
-          const discussionTitle = `Suggestions: ${title}`;
+          const discussionTitle = `Suggestions: ${uniqueTitleValue}`;
           const reused = await findExistingDiscussionByTitle(token, discussionTitle).catch(() => null);
           if (reused) {
             discussionNumber = reused.number;
@@ -615,7 +636,7 @@ module.exports = definePlugin({
               {
                 repoId, categoryId: category.id,
                 title: discussionTitle,
-                body: buildTripDiscussionBody({ title, location, placeCount: totalPlaces, dayCount: dayBlocksInserted || 0 }, prUrl),
+                body: buildTripDiscussionBody({ title: uniqueTitleValue, location, placeCount: totalPlaces, dayCount: dayBlocksInserted || 0 }, prUrl),
               }
             );
             const discussion = discussionData.createDiscussion.discussion;
@@ -630,7 +651,7 @@ module.exports = definePlugin({
           // instead of every browsing user needing to open the PR first to find it.
           await putOnBranch(
             `marketplace/trips/index.json`,
-            `List community trip: ${title}`,
+            `List community trip: ${uniqueTitleValue}`,
             (currentText) => {
               const current = currentText ? JSON.parse(currentText) : [];
               const withoutThisSlug = current.filter((e) => e.id !== slug);

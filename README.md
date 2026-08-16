@@ -25,7 +25,7 @@ local, read-only draft copy under **My imported trips** on the same page;
 removing one only deletes your local copy, nothing on GitHub changes.
 
 **Share a trip** — pick one of your own TREK trips and this opens a pull
-request against the shared marketplace repo (adding
+request against this plugin's own marketplace repo (adding
 `marketplace/trips/<slug>.json` and listing it in
 `marketplace/trips/index.json`), plus a GitHub Discussion seeded with a
 summary and a link back to the PR. A trip that's already been shared shows
@@ -66,7 +66,7 @@ Admins also see **Share a trip** in the top-right corner.
    their itineraries, or import one.
 2. Any admin who wants to **Share a trip** or post a **Suggestion** needs a
    GitHub personal access token, fine-grained and scoped to just
-   `raduwolf12/featured-guides` with Contents, Pull requests and Discussions
+   `raduwolf12/community-trips` with Contents, Pull requests and Discussions
    write access, pasted into their own **GitHub personal access token**
    field on this plugin's settings page — per-user, each admin uses their
    own token. A **Test connection** button on that same settings page
