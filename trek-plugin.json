@@ -1,12 +1,12 @@
 {
   "id": "community-trips",
   "name": "Community Trips",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "apiVersion": 1,
   "author": "raduwolf12",
   "description": "Browse real trips other TREK admins have shared, discuss them, and share your own — reviewed via a GitHub pull request, with a Discussion thread for suggestions.",
   "type": "page",
-  "trek": ">=3.4.0 <4.0.0",
+  "trek": ">=3.4.0 <4.1.0",
   "nativeModules": false,
   "permissions": [
     "db:own",
