@@ -21,6 +21,73 @@ function requireAdmin(req) {
   return null;
 }
 
+// ---- Engine dialect: SQLite vs Postgres ----
+// TREK keeps a plugin's own DB as a SQLite file on SQLite installs, and as a
+// private Postgres schema per plugin once TREK itself runs on Postgres
+// (TREK_DB_URL). The host reports which one via ctx.db.engine(); hosts without
+// it pre-date the Postgres move and are SQLite-only. SQLite spellings
+// (AUTOINCREMENT, datetime('now'), last_insert_rowid()) are rejected on
+// Postgres, so every such spot branches on the engine. The result is cached:
+// the engine is host-wide and never changes at runtime.
+let cachedEngine = null;
+async function dbEngine(ctx) {
+  if (cachedEngine) return cachedEngine;
+  try {
+    if (ctx.db && typeof ctx.db.engine === 'function') {
+      const e = await ctx.db.engine();
+      if (e === 'postgres' || e === 'sqlite') { cachedEngine = e; return e; }
+    }
+  } catch {
+    // Host without db.engine(): SQLite-only TREK, pre-dates the Postgres move.
+  }
+  cachedEngine = 'sqlite';
+  return cachedEngine;
+}
+function isPostgresEngine(engine) { return engine === 'postgres'; }
+// Auto-increment primary key spelling per engine (trip_shares needs none: its
+// trip_id is an explicit host-managed id on both engines).
+function autoPkColumn(engine) {
+  return isPostgresEngine(engine) ? 'SERIAL PRIMARY KEY' : 'INTEGER PRIMARY KEY AUTOINCREMENT';
+}
+function createdColDefault(engine) {
+  return isPostgresEngine(engine) ? 'DEFAULT (now())' : "DEFAULT (datetime('now'))";
+}
+// INSERT + fetch-back of the new row: last_insert_rowid() exists only on
+// SQLite; on Postgres the same statement runs with RETURNING instead.
+async function insertRowAndGet(ctx, table, insertSql, args) {
+  const engine = await dbEngine(ctx);
+  if (isPostgresEngine(engine)) {
+    const rows = await dbQuery(ctx, `${insertSql} RETURNING *`, ...args);
+    return rows[0];
+  }
+  await dbExec(ctx, insertSql, ...args);
+  const rows = await dbQuery(ctx, `SELECT * FROM ${table} WHERE id = last_insert_rowid()`);
+  return rows[0];
+}
+// Placeholders are engine-specific too: SQLite binds `?`, Postgres numbers
+// them $1, $2, … (its guard refuses a bound `?` outright). All db access below
+// goes through these wrappers so the call sites keep the familiar `?`
+// spelling on both engines. Verified: no SQL string here holds a `?` inside
+// a quoted literal, so the rewrite can only hit real placeholders.
+function bindSql(engine, sql) {
+  if (!isPostgresEngine(engine)) return sql;
+  let i = 0;
+  return sql.replace(/\?/g, () => `$${++i}`);
+}
+async function dbQuery(ctx, sql, ...args) {
+  const engine = await dbEngine(ctx);
+  return ctx.db.query(bindSql(engine, sql), ...args);
+}
+async function dbExec(ctx, sql, ...args) {
+  const engine = await dbEngine(ctx);
+  return ctx.db.exec(bindSql(engine, sql), ...args);
+}
+async function dbTx(ctx, ops) {
+  const engine = await dbEngine(ctx);
+  if (!isPostgresEngine(engine)) return ctx.db.tx(ops);
+  return ctx.db.tx(ops.map((op) => ({ ...op, sql: bindSql(engine, op.sql) })));
+}
+
 function parseTips(raw) {
   if (Array.isArray(raw)) return raw.filter((t) => typeof t === 'string' && t.trim()).slice(0, 20);
   return [];
@@ -414,6 +481,12 @@ async function findExistingDiscussionByTitle(token, title) {
 
 module.exports = definePlugin({
   async onLoad(ctx) {
+    // DDL is engine-specific (see helpers above): previously-migrated hosts never
+    // re-run these ids, and hosts that failed on the old SQLite-only SQL (Postgres
+    // TREKs) retry with the spelling their engine accepts.
+    const engine = await dbEngine(ctx);
+    const pk = autoPkColumn(engine);
+    const nowDefault = createdColDefault(engine);
     // One row per TREK trip that's been shared here — tripId is a host-managed ctx.trips id.
     // Lets the client show "PR open"/"view suggestions" instead of re-sharing, and gives
     // /trip/suggestions the discussion to read from without another GitHub round trip.
@@ -426,7 +499,7 @@ module.exports = definePlugin({
         discussion_url TEXT,
         discussion_node_id TEXT,
         shared_by TEXT,
-        created_at TEXT NOT NULL DEFAULT (datetime('now'))
+        created_at TEXT NOT NULL ${nowDefault}
       );
     `);
     // One row per trip imported from the Community Trips list into a local, editable-nowhere
@@ -434,14 +507,14 @@ module.exports = definePlugin({
     // flow had, just stored here instead of in a `guides` table this plugin doesn't have.
     await ctx.db.migrate('002_imported_trips', `
       CREATE TABLE IF NOT EXISTS imported_trips (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        id ${pk},
         slug TEXT NOT NULL,
         title TEXT NOT NULL,
         location TEXT,
         blocks TEXT NOT NULL DEFAULT '[]',
         source_updated_at TEXT,
         imported_by TEXT,
-        created_at TEXT NOT NULL DEFAULT (datetime('now'))
+        created_at TEXT NOT NULL ${nowDefault}
       );
     `);
     ctx.log.info('community-trips loaded');
@@ -504,7 +577,7 @@ module.exports = definePlugin({
         const tripId = Number(b.tripId);
         if (!Number.isInteger(tripId)) return error(400, 'tripId is required');
 
-        const existing = await ctx.db.query('SELECT * FROM trip_shares WHERE trip_id = ?', tripId);
+        const existing = await dbQuery(ctx, 'SELECT * FROM trip_shares WHERE trip_id = ?', tripId);
         if (existing.length) {
           const row = existing[0];
           return json(200, { alreadyShared: true, prUrl: row.pr_url, discussionUrl: row.discussion_url });
@@ -662,7 +735,7 @@ module.exports = definePlugin({
           return error(502, 'GitHub request failed: ' + String(e && e.message || e));
         }
 
-        await ctx.db.exec(
+        await dbExec(ctx, 
           'INSERT INTO trip_shares (trip_id, slug, pr_url, discussion_number, discussion_url, discussion_node_id, shared_by) VALUES (?, ?, ?, ?, ?, ?, ?)',
           tripId, slug, prUrl, discussionNumber, discussionUrl, discussionNodeId, req.user.name || req.user.email || null
         );
@@ -677,7 +750,7 @@ module.exports = definePlugin({
       method: 'GET', path: '/trip/shares', auth: true,
       async handler(req, ctx) {
         const denied = requireAdmin(req); if (denied) return denied;
-        const rows = await ctx.db.query('SELECT trip_id, pr_url, discussion_url FROM trip_shares');
+        const rows = await dbQuery(ctx, 'SELECT trip_id, pr_url, discussion_url FROM trip_shares');
         return json(200, { shares: rows.map((r) => ({ tripId: r.trip_id, prUrl: r.pr_url, discussionUrl: r.discussion_url })) });
       },
     },
@@ -688,7 +761,7 @@ module.exports = definePlugin({
       async handler(req, ctx) {
         const tripId = Number(req.query.tripId);
         if (!Number.isInteger(tripId)) return error(400, 'tripId is required');
-        const rows = await ctx.db.query('SELECT * FROM trip_shares WHERE trip_id = ?', tripId);
+        const rows = await dbQuery(ctx, 'SELECT * FROM trip_shares WHERE trip_id = ?', tripId);
         if (!rows.length) return json(200, { shared: false, comments: [] });
         const share = rows[0];
 
@@ -727,7 +800,7 @@ module.exports = definePlugin({
         const body = String((req.body || {}).body || '').trim().slice(0, 2000);
         if (!body) return error(400, 'Suggestion text is required');
 
-        const rows = await ctx.db.query('SELECT * FROM trip_shares WHERE trip_id = ?', tripId);
+        const rows = await dbQuery(ctx, 'SELECT * FROM trip_shares WHERE trip_id = ?', tripId);
         if (!rows.length) return error(404, "This trip hasn't been shared yet");
         const share = rows[0];
 
@@ -854,19 +927,20 @@ module.exports = definePlugin({
         if (!Array.isArray(b.blocks)) return error(400, 'blocks must be an array');
         const sourceUpdatedAt = b.sourceUpdatedAt ? String(b.sourceUpdatedAt).slice(0, 40) : null;
 
-        await ctx.db.exec(
+        const row = await insertRowAndGet(
+          ctx,
+          'imported_trips',
           'INSERT INTO imported_trips (slug, title, location, blocks, source_updated_at, imported_by) VALUES (?, ?, ?, ?, ?, ?)',
-          slug, title, location, JSON.stringify(b.blocks), sourceUpdatedAt, req.user.name || req.user.email || null
+          [slug, title, location, JSON.stringify(b.blocks), sourceUpdatedAt, req.user.name || req.user.email || null]
         );
-        const rows = await ctx.db.query('SELECT id FROM imported_trips WHERE id = last_insert_rowid()');
-        return json(201, { id: rows[0] && rows[0].id });
+        return json(201, { id: row && row.id });
       },
     },
     {
       // Lists this user's own locally-imported trip drafts, newest first.
       method: 'GET', path: '/trip/imports', auth: true,
       async handler(req, ctx) {
-        const rows = await ctx.db.query('SELECT * FROM imported_trips ORDER BY id DESC');
+        const rows = await dbQuery(ctx, 'SELECT * FROM imported_trips ORDER BY id DESC');
         return json(200, {
           imports: rows.map((r) => ({
             id: r.id, slug: r.slug, title: r.title, location: r.location,
@@ -883,7 +957,7 @@ module.exports = definePlugin({
       async handler(req, ctx) {
         const id = Number(req.query.id);
         if (!Number.isInteger(id)) return error(400, 'A valid id is required');
-        await ctx.db.exec('DELETE FROM imported_trips WHERE id = ?', id);
+        await dbExec(ctx, 'DELETE FROM imported_trips WHERE id = ?', id);
         return json(200, { ok: true });
       },
     },
