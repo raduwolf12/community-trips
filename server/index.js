@@ -32,16 +32,15 @@ function requireAdmin(req) {
 let cachedEngine = null;
 async function dbEngine(ctx) {
   if (cachedEngine) return cachedEngine;
+  // Host without db.engine(): SQLite-only TREK, pre-dates the Postgres move.
+  if (!ctx.db || typeof ctx.db.engine !== 'function') return (cachedEngine = 'sqlite');
   try {
-    if (ctx.db && typeof ctx.db.engine === 'function') {
-      const e = await ctx.db.engine();
-      if (e === 'postgres' || e === 'sqlite') { cachedEngine = e; return e; }
-    }
+    const e = await ctx.db.engine();
+    if (e === 'postgres' || e === 'sqlite') return (cachedEngine = e);
   } catch {
-    // Host without db.engine(): SQLite-only TREK, pre-dates the Postgres move.
+    // Transient host error: don't cache, so the next call asks again.
   }
-  cachedEngine = 'sqlite';
-  return cachedEngine;
+  return 'sqlite';
 }
 function isPostgresEngine(engine) { return engine === 'postgres'; }
 // Auto-increment primary key spelling per engine (trip_shares needs none: its
@@ -81,11 +80,6 @@ async function dbQuery(ctx, sql, ...args) {
 async function dbExec(ctx, sql, ...args) {
   const engine = await dbEngine(ctx);
   return ctx.db.exec(bindSql(engine, sql), ...args);
-}
-async function dbTx(ctx, ops) {
-  const engine = await dbEngine(ctx);
-  if (!isPostgresEngine(engine)) return ctx.db.tx(ops);
-  return ctx.db.tx(ops.map((op) => ({ ...op, sql: bindSql(engine, op.sql) })));
 }
 
 function parseTips(raw) {
@@ -735,7 +729,7 @@ module.exports = definePlugin({
           return error(502, 'GitHub request failed: ' + String(e && e.message || e));
         }
 
-        await dbExec(ctx, 
+        await dbExec(ctx,
           'INSERT INTO trip_shares (trip_id, slug, pr_url, discussion_number, discussion_url, discussion_node_id, shared_by) VALUES (?, ?, ?, ?, ?, ?, ?)',
           tripId, slug, prUrl, discussionNumber, discussionUrl, discussionNodeId, req.user.name || req.user.email || null
         );
